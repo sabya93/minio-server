@@ -1,0 +1,64 @@
+Install mc client:
+
+- wget https://dl.min.io/client/mc/release/linux-amd64/mc
+- chmod +x mc
+
+
+Create Alias for the Server:
+
+- ./mc alias set minio http://192.168.0.107:9000 minio minio123
+
+
+Create Policy JSON for user:
+
+- nano userpolicy.json
+
+- Add the following 
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+            "s3:ListBucket",
+            "s3:PutObject",
+            "s3:GetObject",
+            "s3:DeleteObject"
+        ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:s3:::bucketname/*", "arn:aws:s3:::bucketname"
+      ],
+      "Sid": "BucketAccessForUser"
+    }
+  ]
+}
+
+
+Create new policy:
+
+- ./mc admin policy add minio getonly getonly.json
+
+
+Create new User:
+
+- ./mc admin user add minio newuser newuser123
+
+
+Attach policy to the User:
+
+- ./mc admin policy set minio getonly user=newuser
+
+
+Create Group:
+
+- ./mc admin group add minio regular newuser
+
+
+Add policy to group:
+
+- ./mc admin policy set minio getonly group=regular
+
+
+Check if policy is set:
+
+- ./mc admin user info minio username

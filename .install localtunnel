@@ -1,0 +1,8 @@
+Install LocalTunnel:
+
+- npm install -g localtunnel
+
+
+Expose to Internet:
+
+- lt --port 9000 --subdomain dud-e-khuda
