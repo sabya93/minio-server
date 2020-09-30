@@ -1,2 +1,2 @@
 # minio-server
- Create you oown private cloud.
+ Create your own private cloud.
